@@ -1,0 +1,12 @@
+[package]
+name = "minimax-tictactoe"
+version = "0.1.0"
+edition = "2024"
+authors = ["CieriA"]
+license = "ISC"
+repository = "https://github.com/CieriA/minimax-tictactoe"
+readme = "README.md"
+
+[dependencies]
+colored = "3.0.0"
+
