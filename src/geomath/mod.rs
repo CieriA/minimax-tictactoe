@@ -1,4 +1,4 @@
-use std::{error::Error, ops::{Add, AddAssign}};
+use std::{error::Error};
 use crate::board::Board;
 
 #[derive(Clone, Copy, Debug)]
@@ -26,21 +26,5 @@ impl TryFrom<usize> for Point {
                 i / Board::SIZE
             ))
         }
-    }
-}
-
-impl Add for Point {
-    type Output = Self;
-    fn add(self, rhs: Self) -> Self {
-        Self {
-            x: self.x + rhs.x,
-            y: self.y + rhs.y,
-        }
-    }
-}
-impl AddAssign for Point {
-    fn add_assign(&mut self, rhs: Self) {
-        self.x += rhs.x;
-        self.y += rhs.y;
     }
 }
