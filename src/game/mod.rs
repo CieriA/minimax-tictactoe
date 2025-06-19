@@ -47,12 +47,10 @@ fn with_bot(board: &mut Board, turn: bool) -> Result<Option<String>, Box<dyn Err
         input
     } else {
         board
-            .iter()
-            .enumerate()
-            .flat_map(|(y, row)| row.iter().enumerate().map(move |(x, square)| (Point::new(x, y), square)))
-            .filter(|(p, square)| square.is_none())
-            .map(|(p, square)| {
-                (p, minimax(&board, p, turn))
+            .possible_moves()
+            .into_iter()
+            .map(|p| {
+                (p, minimax(board, p, turn))
             })
             .reduce(|acc, e| {
                 match e.1.cmp(&acc.1) {
@@ -81,7 +79,7 @@ fn minimax(board: &Board, placement: Point, minimize: bool) -> i32 {
     board[placement] = Some(minimize);
     
     if board.check_win(placement) {
-        return if minimize { -10 } else { 10 }; // bcuz the bot is `false`
+        return if minimize { -10 } else { 10 }; // because the bot is `false`
     }
     if board.is_full() {
         return 0;
@@ -90,11 +88,8 @@ fn minimax(board: &Board, placement: Point, minimize: bool) -> i32 {
     let initial = if minimize { i32::MIN } else { i32::MAX };
     
     board
-        .iter()
-        .enumerate()
-        .flat_map(|(y, row)| row.iter().enumerate().map(move |(x, square)| (Point::new(x, y), square)))
-        .filter(|(_, square)| square.is_none())
-        .map(|(p, _)| p)
+        .possible_moves()
+        .into_iter()
         .fold(initial, |acc, e| {
             let mm = minimax(&board, e, !minimize);
             if minimize { max(acc, mm) } else { min(acc, mm) }

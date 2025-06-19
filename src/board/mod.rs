@@ -78,6 +78,15 @@ impl Board {
             .iter()
             .all(|row| row.iter().all(|square| square.is_some()))
     }
+    pub(crate) fn possible_moves(&self) -> Vec<Point> {
+        self
+            .iter()
+            .enumerate()
+            .flat_map(|(y, row)| row.iter().enumerate().map(move |(x, square)| (Point::new(x, y), square)))
+            .filter(|(_, square)| square.is_none())
+            .map(|(p, _)| p)
+            .collect()
+    }
 }
 
 impl Display for Board {
