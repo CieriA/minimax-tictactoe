@@ -32,7 +32,7 @@ fn pass_to_play(board: &mut Board, turn: bool) -> Result<Option<String>, Box<dyn
 fn with_bot(board: &mut Board, turn: bool) -> Result<Option<String>, Box<dyn Error>> {
     let mov = if turn {
         println!("{}", board);
-        println!("It's `{}`'s turn", p_colored(turn));
+        println!("It's your turn");
 
 
         let mut input = String::new();
@@ -104,7 +104,7 @@ pub(crate) fn run() {
     
     println!("To play, just write the number you see on the square where you want to place your piece.");
 
-    let mut turn = true;
+    let mut turn = true; // This states which player starts (`O`, false for bot)
     let mut board = Board::default();
     
     match input.to_ascii_lowercase().trim() {
