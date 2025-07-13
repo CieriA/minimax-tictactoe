@@ -1,6 +1,6 @@
-pub(crate) mod geomath;
-pub(crate) mod game;
 pub(crate) mod board;
+pub(crate) mod game;
+pub(crate) mod geomath;
 
 fn main() {
     game::run();

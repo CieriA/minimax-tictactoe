@@ -1,5 +1,5 @@
-use std::{error::Error};
 use crate::board::Board;
+use std::error::Error;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Point {
@@ -19,12 +19,9 @@ impl TryFrom<usize> for Point {
     #[inline]
     fn try_from(i: usize) -> Result<Self, Self::Error> {
         if i >= Board::SIZE * Board::SIZE {
-            Err(format!("Invalid point index: {}", i).into())
+            Err(format!("Invalid point index: {i}").into())
         } else {
-            Ok(Point::new(
-                i % Board::SIZE,
-                i / Board::SIZE
-            ))
+            Ok(Point::new(i % Board::SIZE, i / Board::SIZE))
         }
     }
 }
